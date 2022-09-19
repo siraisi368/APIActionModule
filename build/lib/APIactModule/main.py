@@ -1,5 +1,4 @@
 import json
-import discord
 import ntplib
 import datetime
 from time import ctime
@@ -31,34 +30,24 @@ class p2p_eq:
         match maxint:
             case -1:
                 shindo = "最大震度：不明"
-                em_color = discord.Colour.from_rgb(152,152,152)
             case 10:
                 shindo = "最大震度：１"
-                em_color = discord.Colour.from_rgb(1,173,197)
             case 20:
                 shindo = "最大震度：２"
-                em_color = discord.Colour.from_rgb(0,197,102)
             case 30:
                 shindo = "最大震度：３"
-                em_color = discord.Colour.from_rgb(1,96,188)
             case 40:
                 shindo = "最大震度：４"
-                em_color = discord.Colour.from_rgb(215,175,0)
             case 45:
                 shindo = "最大震度：５弱"
-                em_color = discord.Colour.from_rgb(214,117,0)
             case 50:
                 shindo = "最大震度：５強"
-                em_color = discord.Colour.from_rgb(214,78,0)
             case 55:
                 shindo = "最大震度：６弱"
-                em_color = discord.Colour.from_rgb(214,0,0)
             case 60:
                 shindo = "最大震度：６強"
-                em_color = discord.Colour.from_rgb(254,125,244)
             case 70:
                 shindo = "最大震度：７"
-                em_color = discord.Colour.from_rgb(131,0,254)
         match type:
             case "ScalePrompt":
                 info = "震度速報"
@@ -73,7 +62,7 @@ class p2p_eq:
             case _:
                 info = "その他"
         data = f"**情報種別**：{info}\r**震源**:{hypocenter}\r{shindo}\r**マグニチュード**：M{str(float(magnitude))}\r**深さ**:{depth}km\r**発生日時**:{date}"
-        return data ,em_color
+        return data
     def history(offset=0):
         resp = "https://api.p2pquake.net/v2/jma/quake?limit=50&offset=1&quake_type=DetailScale"
         js_l = requests.get(resp).json()
@@ -89,34 +78,24 @@ class p2p_eq:
         match maxint:
             case -1:
                 shindo = "最大震度：不明"
-                em_color = discord.Colour.from_rgb(152,152,152)
             case 10:
                 shindo = "最大震度：１"
-                em_color = discord.Colour.from_rgb(1,173,197)
             case 20:
                 shindo = "最大震度：２"
-                em_color = discord.Colour.from_rgb(0,197,102)
             case 30:
                 shindo = "最大震度：３"
-                em_color = discord.Colour.from_rgb(1,96,188)
             case 40:
                 shindo = "最大震度：４"
-                em_color = discord.Colour.from_rgb(215,175,0)
             case 45:
                 shindo = "最大震度：５弱"
-                em_color = discord.Colour.from_rgb(214,117,0)
             case 50:
                 shindo = "最大震度：５強"
-                em_color = discord.Colour.from_rgb(214,78,0)
             case 55:
                 shindo = "最大震度：６弱"
-                em_color = discord.Colour.from_rgb(214,0,0)
             case 60:
                 shindo = "最大震度：６強"
-                em_color = discord.Colour.from_rgb(254,125,244)
             case 70:
                 shindo = "最大震度：７"
-                em_color = discord.Colour.from_rgb(131,0,254)
         match type:
             case "ScalePrompt":
                 info = "震度速報"
@@ -131,7 +110,7 @@ class p2p_eq:
             case _:
                 info = "その他"
         data = f"**情報種別**：{info}\r**震源**:{hypocenter}\r{shindo}\r**マグニチュード**：M{str(float(magnitude))}\r**深さ**:{depth}km\r**発生日時**:{date}"
-        return data ,em_color
+        return data
 #----------------------NTP時刻取得----------------------#
 def ntp_nict(kind="all"):
     match kind:
@@ -176,3 +155,6 @@ def sabun_txt(before,after,tex=None):
 
     data = difflib.ndiff(before.split(),after.split())  
     return url, data
+#----------------------バージョン情報----------------------#
+def version():
+    return "APIactModule 1.4.6"
