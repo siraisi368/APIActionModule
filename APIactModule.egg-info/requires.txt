@@ -1,0 +1,8 @@
+json
+requests
+discord
+ntplib
+datetime
+time
+xmltodict
+difflib
