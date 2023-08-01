@@ -29,25 +29,25 @@ class p2p_eq:
         em_color = None
         match maxint:
             case -1:
-                shindo = "最大震度：不明"
+                shindo = "不明"
             case 10:
-                shindo = "最大震度：１"
+                shindo = "1"
             case 20:
-                shindo = "最大震度：２"
+                shindo = "2"
             case 30:
-                shindo = "最大震度：３"
+                shindo = "3"
             case 40:
-                shindo = "最大震度：４"
+                shindo = "4"
             case 45:
-                shindo = "最大震度：５弱"
+                shindo = "5-"
             case 50:
-                shindo = "最大震度：５強"
+                shindo = "5+"
             case 55:
-                shindo = "最大震度：６弱"
+                shindo = "6-"
             case 60:
-                shindo = "最大震度：６強"
+                shindo = "6+"
             case 70:
-                shindo = "最大震度：７"
+                shindo = "7"
         match type:
             case "ScalePrompt":
                 info = "震度速報"
@@ -61,7 +61,14 @@ class p2p_eq:
                 info = "遠地地震に関する情報"
             case _:
                 info = "その他"
-        data = f"**情報種別**：{info}\r**震源**:{hypocenter}\r{shindo}\r**マグニチュード**：M{str(float(magnitude))}\r**深さ**:{depth}km\r**発生日時**:{date}"
+        data = {
+            "type": info,
+            "hypocenter": hypocenter,
+            "maxInt": shindo,
+            "magnitude": str(float(magnitude)),
+            "depth": depth,
+            "time": date
+        }
         return data
     def history(offset=0):
         resp = "https://api.p2pquake.net/v2/jma/quake?limit=50&offset=1&quake_type=DetailScale"
@@ -77,25 +84,25 @@ class p2p_eq:
         em_color = None
         match maxint:
             case -1:
-                shindo = "最大震度：不明"
+                shindo = "不明"
             case 10:
-                shindo = "最大震度：１"
+                shindo = "1"
             case 20:
-                shindo = "最大震度：２"
+                shindo = "2"
             case 30:
-                shindo = "最大震度：３"
+                shindo = "3"
             case 40:
-                shindo = "最大震度：４"
+                shindo = "4"
             case 45:
-                shindo = "最大震度：５弱"
+                shindo = "5-"
             case 50:
-                shindo = "最大震度：５強"
+                shindo = "5+"
             case 55:
-                shindo = "最大震度：６弱"
+                shindo = "6-"
             case 60:
-                shindo = "最大震度：６強"
+                shindo = "6+"
             case 70:
-                shindo = "最大震度：７"
+                shindo = "7"
         match type:
             case "ScalePrompt":
                 info = "震度速報"
@@ -109,7 +116,14 @@ class p2p_eq:
                 info = "遠地地震に関する情報"
             case _:
                 info = "その他"
-        data = f"**情報種別**：{info}\r**震源**:{hypocenter}\r{shindo}\r**マグニチュード**：M{str(float(magnitude))}\r**深さ**:{depth}km\r**発生日時**:{date}"
+        data = {
+            "type": info,
+            "hypocenter": hypocenter,
+            "maxInt": shindo,
+            "magnitude": str(float(magnitude)),
+            "depth": depth,
+            "time": date
+        }
         return data
 #----------------------NTP時刻取得----------------------#
 def ntp_nict(kind="all"):
